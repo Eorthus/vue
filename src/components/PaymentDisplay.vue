@@ -16,7 +16,6 @@
     </tr>
   </div>
 </template>
-
 <script>
 export default {
   name: "PaymentDisplay",
@@ -25,7 +24,6 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" scoped>
 .list {
   margin: 1% 2%;
