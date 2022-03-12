@@ -60,7 +60,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
