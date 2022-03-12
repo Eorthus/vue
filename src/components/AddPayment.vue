@@ -46,7 +46,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 18px;
 }
 .add-btn {
   max-width: 100px;
@@ -56,6 +55,7 @@ export default {
   color: white;
   border: none;
   margin: 1%;
+  font-size: 18px;
 }
 .add-input {
   padding-left: 10px;
@@ -63,5 +63,6 @@ export default {
   max-width: 300px;
   width: 100%;
   height: 30px;
+  font-size: 18px;
 }
 </style>
