@@ -1,7 +1,13 @@
 <template>
   <div class="add">
+
+  
     <input class="add-input" placeholder="Amount" v-model="value" />
-    <input class="add-input" placeholder="Type" v-model="category" />
+  <select class="add-input" v-model="category" >
+<option  v-for="option in getCategoryList" :key="option" :value="option" >
+  {{option}}
+</option>
+</select>
     <input class="add-input" placeholder="Date" v-model="date" />
     <button @click="OnSave" class="add-btn">Add</button>
   </div>
@@ -16,6 +22,7 @@ export default {
       category: "",
       date: "",
       id: 3,
+      selected:""
     };
   },
   computed: {
@@ -26,6 +33,9 @@ export default {
       const y = today.getFullYear();
       return `${d}.${m}.${y}`;
     },
+    getCategoryList(){
+   return this.$store.getters.getCategoryList
+ },
   },
   methods: {
     OnSave() {
@@ -33,11 +43,16 @@ export default {
         value: this.value,
         category: this.category,
         date: this.Date || this.getCurrentDate,
-        id: ++this.id,
+        id: Math.floor(Math.random()*Math.floor(Math.random()+Date.now()))
       };
       this.$emit(`addNewPayment`, data);
     },
   },
+   mounted(){
+   if (!this.getCategoryList.length) {
+this.$store.dispatch('loadCategories')
+}
+ } ,
 };
 </script>
 
@@ -64,5 +79,6 @@ export default {
   width: 100%;
   height: 30px;
   font-size: 18px;
+  box-sizing: border-box;
 }
 </style>

@@ -5,29 +5,45 @@
     </header>
     <button class="app-add" @click="checked = !checked">Add new cost</button>
     <AddPayment v-show="checked" @addNewPayment="addData" />
-    <PaymentDisplay :List="PaymentList" />
+    <PaymentDisplay :List="currentElements" />
+    <MyPagination :length="PaymentList.length" :n="n" :cur="cur" @changePage="OnChangePage"/>
   </div>
 </template>
 
 <script>
 import PaymentDisplay from "./components/PaymentDisplay.vue";
 import AddPayment from "./components/AddPayment.vue";
+import MyPagination from './components/MyPagination.vue';
 
 export default {
   name: "App",
   components: {
     PaymentDisplay,
     AddPayment,
+    MyPagination,
   },
 
   data() {
     return {
-      PaymentList: [],
       checked: false,
+      n:5,
+      cur:1,
+  //    paymentsList:this.$store.state.paymentList
     };
   },
-
+computed:{
+    getFPV () {
+return this.$store.getters.getFullPaymentValue
+},
+ PaymentList(){
+   return this.$store.getters.getPaymentsList
+ },
+ currentElements(){
+  return this.PaymentList.slice(this.n*(this.cur-1),this.n*(this.cur-1)+this.n)
+}
+},
   methods: {
+
     fetchData() {
       return [
         {
@@ -51,11 +67,21 @@ export default {
       ];
     },
     addData(data) {
-      this.PaymentList.push(data);
+    // this.PaymentList.push(data);
+    this.$store.commit('addDataPaymentsList',data)
     },
+OnChangePage(p){
+this.cur=p
+},
+
+
   },
+
   created() {
-    this.PaymentList = this.fetchData();
+  //  this.PaymentList = this.fetchData();
+//this.$store.commit('setPaymentsListData', this.fetchData());
+   //console.log(this.$store);
+this.$store.dispatch('fetchData')
   },
 };
 </script>

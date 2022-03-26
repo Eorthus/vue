@@ -39,13 +39,13 @@ export default {
   border-top: 1px solid gray;
 }
 .list-item-id {
-  width: 30px;
+  width: 190px;
 }
 .list-item-date {
   width: 120px;
 }
 .list-item-category {
-  width: 180px;
+  width: 150px;
 }
 .list-item-value {
   width: 80px;
