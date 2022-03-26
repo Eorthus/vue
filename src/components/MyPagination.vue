@@ -5,7 +5,6 @@
     {{i}}
 </div>
       <div class="act btn" @click="OnClick(cur+1)">+</div>
-      
   </div>
 </template>
 
@@ -51,7 +50,6 @@ this.$emit('changePage',p)
     padding-left:10px;
     padding-bottom:10px;
     color:gray;
-
 }
 .btn{
     background: plum;
