@@ -8,7 +8,10 @@ state: {
 },
 mutations: {
         setPaymentsListData (state, payload) {
-                state.paymentList = payload
+                if (state.paymentList.length<51){
+                state.paymentList = payload;
+                console.log(state.paymentList.length)
+                } else return
         },
         addDataPaymentsList(state,payload){
                 state.paymentList.push(payload)
@@ -51,7 +54,7 @@ resolve(items)},2000)}). then(res=>{
                 return new Promise((resolve) => {
                 // имитируем работу с сетью
                 setTimeout(() => {
-                resolve(['Food', 'Transport', 'Education', 'Entertainment'])
+                resolve(['Food', 'Transport', 'Education', 'Sport'])
                 }, 1000)
                 })
                 .then(res => {
