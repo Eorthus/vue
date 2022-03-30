@@ -1,7 +1,6 @@
 <template>
-  <div >
-  <button class="app-add" @click="checked = !checked">Add new cost</button>
-  <div v-show="checked" class="add">
+  <div class="about">
+ <div class="add">
     <input class="add-input" placeholder="Amount" v-model="value" />
   <select class="add-input" v-model="category" >
 <option  v-for="option in getCategoryList" :key="option" :value="option" >
@@ -13,19 +12,20 @@
   </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "AddPayment",
+ 
   data() {
     return {
-      value: "",
-      category: "",
+value: this.$route.query.value,
+      category:  this.$route.params.category,
       date: "",
       id: 3,
       selected:"",
       checked:false,
     };
+    
   },
   computed: {
     getCurrentDate() {
@@ -47,19 +47,29 @@ export default {
         date: this.Date || this.getCurrentDate,
         id: Math.floor(Math.random()*Math.floor(Math.random()+Date.now()))
       };
-      this.$emit(`addNewPayment`, data);
+         this.$store.commit('addDataPaymentsList',data)
+     // this.$emit(`addNewPayment`, data);
     },
   },
    mounted(){
    if (!this.getCategoryList.length) {
 this.$store.dispatch('loadCategories')
 }
-
+if(this.$route.params?.category){
+  this.option=this.$route.params.category
+  if(this.$route.query?.value){
+    this.value=this.$route.query.value
+  }
+}
  } ,
 };
 </script>
 
 <style lang="scss" scoped>
+.about{
+   margin-top: 60px;
+  margin-left: 2%;
+}
 .add {
   display: flex;
   flex-direction: column;

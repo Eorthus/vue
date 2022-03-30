@@ -13,6 +13,8 @@
       <td class="list-item-date">{{ item.date }}</td>
       <td class="list-item-category">{{ item.category }}</td>
       <td class="list-item-value">{{ item.value }}</td>
+      <td class="list-item-add">
+        <router-link style="color:plum" :to="{name:'add',params:{category:item.category}, query:{value:item.value}}">Repeat</router-link></td>
     </tr>
   </div>
 </template>
