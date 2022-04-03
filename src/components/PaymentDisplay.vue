@@ -14,7 +14,8 @@
       <td class="list-item-category">{{ item.category }}</td>
       <td class="list-item-value">{{ item.value }}</td>
       <td class="list-item-add">
-        <router-link style="color:plum" :to="{name:'add',params:{category:item.category}, query:{value:item.value}}">Repeat</router-link></td>
+        <router-link class="list-link" style="color:plum" :to="{name:'add',params:{category:item.category}, query:{value:item.value}}">Repeat</router-link></td>
+   <td><button class="list-btn" @click="addFormOpen(item.id,item.category,item.date,item.value)">:</button></td>
     </tr>
   </div>
 </template>
@@ -24,11 +25,22 @@ export default {
   props: {
     List: [],
   },
+  methods:{
+    addFormOpen(id,category,date,value){
+this.$modal.show('name',{
+  content:"AddPayment",
+  id: id,
+  category:category,
+  value:value,
+  date:date,
+})
+},
+  }
 };
 </script>
 <style lang="scss" scoped>
 .list {
-  margin: 1% 2%;
+  margin: 1%;
   font-size: 18px;
 }
 .list-header {
@@ -51,5 +63,15 @@ export default {
 }
 .list-item-value {
   width: 80px;
+}
+.list-link{
+  width:100px;
+}
+.list-btn{
+margin-left:50px;
+margin-right: 50px;
+border:1px solid plum;
+background: white;
+color:plum;
 }
 </style>

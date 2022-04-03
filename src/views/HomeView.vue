@@ -3,7 +3,10 @@
     <header>
       <div class="title">My Personal Costs</div>
     </header>
-    <AddPayment  @addNewPayment="addData" />
+    <transition name="fade">
+    <ModalWindoW v-if="ModalShown" :settings="settings"/>
+    </transition>
+ <AddPayment  @addNewPayment="addData" />
     <PaymentDisplay :List="currentElements" />
     <MyPagination :length="PaymentList.length" :n="n" :cur="cur" @changePage="OnChangePage"/>
   </div>
@@ -12,21 +15,29 @@
 import PaymentDisplay from "../components/PaymentDisplay.vue";
 import AddPayment from "../components/AddPayment.vue";
 import MyPagination from '../components/MyPagination.vue';
+import ModalWindoW from "../components/ModalWindow.vue";
+
 export default {
   name: "App",
   components: {
     PaymentDisplay,
+    ModalWindoW,
     AddPayment,
     MyPagination,
   },
   data() {
     return {
-  
+  ModalWindoW: '',
+  ModalShown:false,
+modalWindowSettings: {},
+addFormShown:false,
+settings:{},
+
       n:5,
       cur:1,
-  //    paymentsList:this.$store.state.paymentList
     };
   },
+
 computed:{
     getFPV () {
 return this.$store.getters.getFullPaymentValue
@@ -39,6 +50,22 @@ return this.$store.getters.getFullPaymentValue
 }
 },
   methods: {
+    onShown (settings) {
+this.ModalShown = true
+this.settings = settings
+console.log(settings)
+},
+onHide () {
+this.ModalShown = false
+this.settings = {}
+},
+addFormOpen(){
+this.$modal.show('name',{
+  content:"gyfhg",
+  title:"bbbb"
+})
+},
+
     fetchData() {
       return [
         {
@@ -69,16 +96,31 @@ OnChangePage(p){
 this.cur=p
 },
   },
+  mounted () {
+this.$modal.EventBus.$on('shown',this.onShown)
+this.$modal.EventBus.$on('hide',this.onHide)
+},
+
   created() {
   //  this.PaymentList = this.fetchData();
 //this.$store.commit('setPaymentsListData', this.fetchData());
    //console.log(this.$store);
 this.$store.dispatch('fetchData')
   },
+  beforeDestroy(){
+    this.$modal.EventBus.$off('shown',this.onShown)
+this.$modal.EventBus.$off('hide',this.onHide)
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active, .fade-leave-active{
+  transition: opacity .5s ease;
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -99,7 +141,7 @@ this.$store.dispatch('fetchData')
   background: plum;
   color: white;
   border: none;
-  margin: 2% 1%;
+  margin: 1%;
   font-size: 18px;
 }
 nav {

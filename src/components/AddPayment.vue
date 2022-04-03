@@ -17,6 +17,9 @@
 <script>
 export default {
   name: "AddPayment",
+      props:{
+        settings:Object
+    },
   data() {
     return {
       value: "",
@@ -47,6 +50,7 @@ export default {
         date: this.Date || this.getCurrentDate,
         id: Math.floor(Math.random()*Math.floor(Math.random()+Date.now()))
       };
+    
       this.$emit(`addNewPayment`, data);
     },
   },
@@ -72,7 +76,7 @@ this.$store.dispatch('loadCategories')
   background: plum;
   color: white;
   border: none;
-  margin: 2% 1%;
+  margin: 1%;
   font-size: 18px;
 }
 .add-btn {
