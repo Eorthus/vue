@@ -42,7 +42,7 @@ this.$emit('changePage',p)
 .wrp{
     margin-top:20px;
     display: flex;
-    padding-left:2%;
+    padding-left:1%;
 }
 .act{
     width:15px;

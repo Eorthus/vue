@@ -10,12 +10,25 @@ mutations: {
         setPaymentsListData (state, payload) {
                 if (state.paymentList.length<51){
                 state.paymentList = payload;
-                console.log(state.paymentList.length)
+                
                 } else return
         },
         addDataPaymentsList(state,payload){
                 state.paymentList.push(payload)
         },
+        editDataPaymentsList(state,payload){
+                state.paymentList.map(o => {
+                        if (o.id === payload.id) {
+                                o.value=payload.value
+                                o.date=payload.date
+                                o.category=payload.category
+        }
+})},
+deleteDataPaymentsList(state,payload){
+        state.paymentList.forEach(function(el, i) {
+                if (el.id == payload.id) state.paymentList.splice(i, 1)
+              })
+},
         setCategories (state, payload) {
                 if (!Array.isArray(payload)) {
                 payload = [payload]
