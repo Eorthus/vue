@@ -12,7 +12,6 @@
                 <input class="add-input" placeholder="Date" v-model="NewObj.date" />
       <button class="add-btn" @click="OnSave(NewObj)" >Edit</button>
     </div>
-
     <button @click="OnDelete(NewObj)" v-if="btnShow" class="add-btn">Delete</button>
 
   </div>
