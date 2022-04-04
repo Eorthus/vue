@@ -1,6 +1,6 @@
 <template>
   <div class="MyWindow">
-    <button @click="OnEdit" v-if="btnShow" class="add-btn">Edit</button>
+    <button @click="OnEdit" v-if="btnShow" name="edit-btn" class="add-btn">Edit</button>
     
     <div v-if="editShow" class="MyModal">
               <input class="add-input" placeholder="Value" v-model="NewObj.value" />
@@ -12,7 +12,7 @@
                 <input class="add-input" placeholder="Date" v-model="NewObj.date" />
       <button class="add-btn" @click="OnSave(NewObj)" >Edit</button>
     </div>
-    <button @click="OnDelete(NewObj)" v-if="btnShow" class="add-btn">Delete</button>
+    <button @click="OnDelete(NewObj)" name="del-btn" v-if="btnShow" class="add-btn">Delete</button>
 
   </div>
 </template>
@@ -53,9 +53,11 @@ export default {
     },
   },
    mounted(){
+       if (!this.getCategoryList===undefined){
    if (!this.getCategoryList.length) {
 this.$store.dispatch('loadCategories')
 }
+       }
  } ,
 };
 </script>

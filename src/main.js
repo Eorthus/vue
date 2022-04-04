@@ -14,7 +14,6 @@ Vue.use(modal);
 new Vue({
   // подключаем хранилище к нашему приложению
   store,
-
   router,
   render: h => h(App)
 }).$mount('#app')
