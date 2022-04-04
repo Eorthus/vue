@@ -1,15 +1,15 @@
 <template>
   <div >
-  <button class="app-add" @click="checked = !checked">Add new cost</button>
+  <button class="app-add" name="add-btn" @click="checked = !checked">Add new cost</button>
   <div v-show="checked" class="add">
-    <input class="add-input" placeholder="Amount" v-model="value" />
-  <select class="add-input" v-model="category" >
+    <input class="add-input" placeholder="Amount" name="value" v-model="value" />
+  <select class="add-input" v-model="category" name="category">
 <option  v-for="option in getCategoryList" :key="option" :value="option" >
   {{option}}
 </option>
 </select>
-    <input class="add-input" placeholder="Date" v-model="date" />
-    <button @click="OnSave" class="add-btn">Add</button>
+    <input class="add-input" placeholder="Date" name="date" v-model="date" />
+    <button @click="OnSave" class="add-btn" name="btn-add">Add</button>
   </div>
   </div>
 </template>
@@ -55,9 +55,10 @@ export default {
     },
   },
    mounted(){
+     if (!this.getCategoryList===undefined){
    if (!this.getCategoryList.length) {
 this.$store.dispatch('loadCategories')
-}
+}}
 
  } ,
 };
@@ -78,6 +79,7 @@ this.$store.dispatch('loadCategories')
   border: none;
   margin: 1%;
   font-size: 18px;
+  margin-right: auto;
 }
 .add-btn {
   max-width: 100px;
