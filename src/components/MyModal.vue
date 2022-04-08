@@ -1,7 +1,6 @@
 <template>
   <div class="MyWindow">
-    <button @click="OnEdit" v-if="btnShow" name="edit-btn" class="add-btn">Edit</button>
-    
+    <v-btn color="pink" dark @click="OnEdit" v-if="btnShow" name="edit-btn" class="add-btn">Edit</v-btn>
     <div v-if="editShow" class="MyModal">
               <input class="add-input" placeholder="Value" v-model="NewObj.value" />
      <select class="add-input" v-model="NewObj.category" >
@@ -10,9 +9,9 @@
 </option>
 </select>
                 <input class="add-input" placeholder="Date" v-model="NewObj.date" />
-      <button class="add-btn" @click="OnSave(NewObj)" >Edit</button>
+      <v-btn color="pink" dark class="add-btn" @click="OnSave(NewObj)" >Edit</v-btn>
     </div>
-    <button @click="OnDelete(NewObj)" name="del-btn" v-if="btnShow" class="add-btn">Delete</button>
+    <v-btn color="pink" dark @click="OnDelete(NewObj)" name="del-btn" v-if="btnShow" class="add-btn">Delete</v-btn>
 
   </div>
 </template>
@@ -77,7 +76,7 @@ padding:20px;
   justify-content: center;
 }
 .app-add {
-  max-width: 150px;
+  max-width: 100px;
   width: 100%;
   height: 30px;
   background: plum;
@@ -87,15 +86,15 @@ padding:20px;
   font-size: 18px;
 }
 .add-btn {
-  max-width: 100px;
+  min-width: 100px;
   width: 100%;
   height: 30px;
-  background: white;
-  color: plum;
+ /// background: white;
+ // color: plum;
   border: none;
   margin: 1%;
   font-size: 18px;
-  border:1px solid plum
+//  border:1px solid plum
 }
 .add-input {
   padding-left: 10px;
@@ -106,5 +105,6 @@ padding:20px;
   height: 30px;
   font-size: 18px;
   box-sizing: border-box;
+  border:1px solid palevioletred;
 }
 </style>
