@@ -1,26 +1,23 @@
 <template>
-  <div>
-    <nav class="navy">
-      <router-link style="color:plum" to="/">Back to list</router-link>
-    </nav>
-    <router-view/>
-   <!-- <MyCalc/>-->
- </div>
+  <v-app>
+    <v-app-bar
+      app
+    >
+      <v-btn plain :ripple="false" to="/">Back to list</v-btn>
+    </v-app-bar>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
+
 <script>
-//import MyCalc from './components/MyCalc.vue'
 
 export default {
-components: {
-//  MyCalc
-},
-}
-</script>
+  name: 'App',
 
-<style lang="scss" scoped>
-.navy{
-  margin-left:2%;
-  font-size: 18px;
-  margin-top:30px;
-}
-</style>
+  data: () => ({
+    //
+  }),
+};
+</script>

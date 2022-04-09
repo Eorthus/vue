@@ -39,7 +39,7 @@ methods:{
     box-shadow: 0px 0px 10px 5px rgba(80, 80, 80,0.3);
 }
 .modal-btn{
-    color:plum;
+    color:palevioletred;
     background: transparent;
     border:none;
     position: absolute;

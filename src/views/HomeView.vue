@@ -1,7 +1,10 @@
 <template>
-  <div id="app">
+<v-container>
+  <v-row>
+    <v-col>
+       <div id="app">
     <header>
-      <div class="title">My Personal Costs</div>
+      <div class="title text-h5 text-sm-h3 pb-3 bt-3">My Personal Costs</div>
     </header>
     <transition name="fade">
     <ModalWindoW v-if="ModalShown" :settings="settings"/>
@@ -10,13 +13,19 @@
     <PaymentDisplay :List="currentElements" />
     <MyPagination :length="PaymentList.length" :n="n" :cur="cur" @changePage="OnChangePage"/>
   </div>
+    </v-col>
+      <v-col>
+        DIAGRAMMA
+    </v-col>
+  </v-row>
+</v-container>
+ 
 </template>
 <script>
 import PaymentDisplay from "../components/PaymentDisplay.vue";
 import AddPayment from "../components/AddPayment.vue";
 import MyPagination from '../components/MyPagination.vue';
 import ModalWindoW from "../components/ModalWindow.vue";
-
 export default {
   name: "App",
   components: {
@@ -27,17 +36,16 @@ export default {
   },
   data() {
     return {
+      dialog:false,
   ModalWindoW: '',
   ModalShown:false,
 modalWindowSettings: {},
 addFormShown:false,
 settings:{},
-
       n:5,
       cur:1,
     };
   },
-
 computed:{
     getFPV () {
 return this.$store.getters.getFullPaymentValue
@@ -65,7 +73,6 @@ this.$modal.show('name',{
   title:"bbbb"
 })
 },
-
     fetchData() {
       return [
         {
@@ -100,7 +107,6 @@ this.cur=p
 this.$modal.EventBus.$on('shown',this.onShown)
 this.$modal.EventBus.$on('hide',this.onHide)
 },
-
   created() {
   //  this.PaymentList = this.fetchData();
 //this.$store.commit('setPaymentsListData', this.fetchData());
@@ -147,14 +153,11 @@ this.$modal.EventBus.$off('hide',this.onHide)
 nav {
   padding: 30px;
 }
-
 nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
-
