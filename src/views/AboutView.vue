@@ -1,14 +1,33 @@
 <template>
   <div class="about">
  <div class="add">
-    <input class="add-input" placeholder="Amount" v-model="value" />
-  <select class="add-input" v-model="category" >
-<option  v-for="option in getCategoryList" :key="option" :value="option" >
-  {{option}}
-</option>
-</select>
-    <input class="add-input" placeholder="Date" v-model="date" />
-    <button @click="OnSave" class="add-btn">Add</button>
+    <v-text-field
+   color="pink"
+            v-model="value"
+         
+            :counter="10"
+            label="Amount"
+            required
+            name="value"
+          ></v-text-field>
+         <v-select
+          v-model="category"
+          label="Standard"
+          name="category"
+          :items="getCategoryList"
+          color="pink"
+        ></v-select>
+
+  <v-text-field
+   color="pink"
+            v-model="date"
+       
+            :counter="10"
+            label="Date"
+            required
+            name="date"
+          ></v-text-field>
+    <v-btn color="pink" dark @click="OnSave" class="add-btn">Add</v-btn>
   </div>
   </div>
 </template>
@@ -69,6 +88,8 @@ if(this.$route.params?.category){
 .about{
    margin-top: 60px;
   margin-left: 2%;
+  //width:100%;
+  margin-right: 2%;
 }
 .add {
   display: flex;
@@ -103,5 +124,6 @@ if(this.$route.params?.category){
   height: 30px;
   font-size: 18px;
   box-sizing: border-box;
+  border:1px solid palevioletred;
 }
 </style>

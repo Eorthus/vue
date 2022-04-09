@@ -2,13 +2,32 @@
   <div class="MyWindow">
     <v-btn color="pink" dark @click="OnEdit" v-if="btnShow" name="edit-btn" class="add-btn">Edit</v-btn>
     <div v-if="editShow" class="MyModal">
-              <input class="add-input" placeholder="Value" v-model="NewObj.value" />
-     <select class="add-input" v-model="NewObj.category" >
-<option  v-for="option in getCategoryList" :key="option" :value="option" >
-  {{option}}
-</option>
-</select>
-                <input class="add-input" placeholder="Date" v-model="NewObj.date" />
+       <v-text-field
+   color="pink"
+            v-model="NewObj.value"
+           
+            :counter="10"
+            label="Value"
+            required
+            name="value"
+          ></v-text-field>
+
+             <v-select
+          v-model="NewObj.category"
+          label="Standard"
+          name="category"
+          :items="getCategoryList"
+          color="pink"
+        ></v-select>
+ <v-text-field
+   color="pink"
+            v-model="NewObj.date"
+          
+            :counter="10"
+            label="Date"
+            required
+            name="date"
+          ></v-text-field>
       <v-btn color="pink" dark class="add-btn" @click="OnSave(NewObj)" >Edit</v-btn>
     </div>
     <v-btn color="pink" dark @click="OnDelete(NewObj)" name="del-btn" v-if="btnShow" class="add-btn">Delete</v-btn>
