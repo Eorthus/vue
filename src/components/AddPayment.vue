@@ -1,6 +1,6 @@
 <template>
   <div >
-<v-dialog 
+<v-dialog max-width="350px"
   v-model="dialog" >
 <template v-slot:activator="{ on }">
          <v-btn color="pink" v-on="on" dark  class="app-add" name="add-btn" @click="checked = !checked">Add new cost <v-icon>mdi-plus</v-icon></v-btn>
@@ -8,13 +8,31 @@
       </template>
       <v-card class="app">
  <div v-show="checked" class="add">
-    <input class="add-input" placeholder="Amount" name="value" v-model="value" />
-  <select class="add-input" v-model="category" name="category">
-<option  v-for="option in getCategoryList" :key="option" :value="option" >
-  {{option}}
-</option>
-</select>
-    <input class="add-input" placeholder="Date" name="date" v-model="date" />
+   <v-text-field
+   color="pink"
+            v-model="value"
+            :counter="10"
+            label="Amount"
+            required
+            name="value"
+          ></v-text-field>
+           <v-select
+          v-model="category"
+          label="Standard"
+          name="category"
+          :items="getCategoryList"
+          color="pink"
+        ></v-select>
+
+  <v-text-field
+   color="pink"
+            v-model="date"
+           
+            :counter="10"
+            label="Date"
+            required
+            name="date"
+          ></v-text-field>
     <v-btn  color="pink" dark @click="OnSave" class="add-btn" name="btn-add">Add</v-btn>
   </div>
       </v-card>
@@ -32,7 +50,7 @@ export default {
   data() {
     return {
       value: "",
-      category: "",
+      category: "Sport",
       date: "",
       id: 3,
       selected:"",
@@ -65,10 +83,16 @@ export default {
     },
   },
    mounted(){
-     if (!this.getCategoryList===undefined){
+     if (this.getCategoryList){
    if (!this.getCategoryList.length) {
 this.$store.dispatch('loadCategories')
 }}
+if(this.$route.params?.category){
+  this.option=this.$route.params.category
+  if(this.$route.query?.value){
+    this.value=this.$route.query.value
+  }
+}
 
  } ,
 };
@@ -82,6 +106,7 @@ this.$store.dispatch('loadCategories')
 }
 .app{
   max-width: 350px;
+  padding:20px;
 }
 .app-add {
  // height: 30px;

@@ -1,14 +1,11 @@
 <template>
   <div class="wrp">
       <v-pagination
-      v-model="curr"
+      v-model="i"
       :length="amount"
       @input="OnClick(i)"
       color="pink"
     >
-      <!--<div class="act btn" @click="OnClick(cur-1)">-</div>-->
-
-     <!-- <div class="act btn" @click="OnClick(cur+1)">+</div>-->
       </v-pagination>
   </div>
   
@@ -24,12 +21,10 @@ cur:Number,
 },
 data(){
     return{
+        i:this.cur,
     }
 },
 computed:{
-    curr(){
-        return +this.cur
-    },
 amount(){
     return Math.ceil(this.length/this.n)
 }
