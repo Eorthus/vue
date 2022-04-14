@@ -10,7 +10,7 @@
     <transition name="fade">
     <ModalWindoW v-if="ModalShown" :settings="settings"/>
     </transition>
- <AddPayment  @addNewPayment="addData" />
+ <AddPayment  @addNewPayment="addData" @getCategoriesSum="getCategoriesSum"/>
     <PaymentDisplay :List="currentElements" />
     <MyPagination :length="PaymentList.length" :n="n" :cur="cur" @changePage="OnChangePage"/>
     </v-col>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       OneSum:"",
-      CategorySum:[],
+      CategorySum:[0,0,0,0],
       dialog:false,
   ModalWindoW: '',
   ModalShown:false,
@@ -56,6 +56,7 @@ computed:{
     getFPV () {
 return this.$store.getters.getFullPaymentValue
 },
+
  PaymentList(){
    return this.$store.getters.getPaymentsList
  },
@@ -65,17 +66,34 @@ return this.$store.getters.getFullPaymentValue
 
 },
   methods: {
-    getCategorySum(){
-this.PaymentList.forEach(item=>{
-if (item.category=="Sport"){
-  const sum = this.PaymentList.reduce((accumulator, object) => {
+   getCategorySum(cat){
+const sum = this.PaymentList.reduce((accumulator, object) => {
+    if(object.category==cat){
   return accumulator + object.value;
-}, 0);
-this.OneSum=sum;
-}
+    }
+},0);
+console.log(sum)
+//this.CategorySum.push(sum);
+
+                                if (cat=="Food"){
+                                        this.CategorySum[0]=+sum
+                                }
+                                if (cat=="Transport"){
+                                        this.CategorySum[1]=+sum
+                                }
+                                if (cat=="Education"){
+                                        this.CategorySum[2]=+sum
+                                }
+                                if (cat=="Sport"){
+                                        this.CategorySum[3]=+sum
+                                }
+                                
+                        
+},
+getCategoriesSum(){
+this.$store.getters.getCategoryList.forEach(element=>{
+  this.getCategorySum(element)
 })
-this.CategorySum.push(this.OneSum)
-console.log(this.CategorySum);
 },
     onShown (settings) {
 this.ModalShown = true
@@ -126,14 +144,14 @@ this.cur=p
 this.$modal.EventBus.$on('shown',this.onShown)
 this.$modal.EventBus.$on('hide',this.onHide)
 
-this.getCategorySum();
+this.getCategoriesSum();
 const data = {
-  labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+  labels: ['Red', 'Orange', 'Yellow', 'Green'],
   datasets: [
     {
       label: 'Dataset 1',
-      data: [10,4,2,1,5,7],
-      backgroundColor: ["red","orange",'yellow','green','blue'],
+      data: this.CategorySum,
+      backgroundColor: ["red","orange",'yellow','green'],
     }
   ]
 };

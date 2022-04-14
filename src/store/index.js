@@ -5,6 +5,7 @@ export default new Vuex.Store({
 state: {
         paymentList:[],
         categoryList:[],
+        categorySum:[],
 },
 mutations: {
         setPaymentsListData (state, payload) {
@@ -34,8 +35,35 @@ deleteDataPaymentsList(state,payload){
                 payload = [payload]
                 }
                 state.categoryList.push(...payload)
-                },                
+                },   
+              /*  setCategoriesSum(state){
+                        state.categoryList.forEach(element=>{
+                        const sum=state.paymentList.reduce((acc,obj)=>{
+                                if(obj.category==element){
+                                        return acc+obj.value 
+                                }
+                        },0)
+                        console.log(sum)
+                        if (state.categorySum.length<4){
+                        state.categorySum.push(sum)
+                } else {
+                                if (element=="Food"){
+                                        state.categorySum[1]=sum
+                                }
+                                if (element=="Transport"){
+                                        state.categorySum[2]=sum
+                                }
+                                if (element=="Education"){
+                                        state.categorySum[3]=sum
+                                }
+                                if (element=="Sport"){
+                                        state.categorySum[4]=sum
+                                }
+                        }
+                        },    )         
+},*/
 },
+
 getters: {
         getPaymentsList: state => state.paymentList,
         // получаем суммарную стоимость всех платежей
@@ -44,6 +72,7 @@ getters: {
         .reduce((res, cur) => res + cur.value, 0)
         },
         getCategoryList: state => state.categoryList,
+        getCategorySum: state => state.categorySum,
 
 },
 actions: {

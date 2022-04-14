@@ -80,6 +80,7 @@ export default {
       };
     
       this.$emit(`addNewPayment`, data);
+       this.$emit('getCategoriesSum')
     },
   },
    mounted(){
